@@ -31,7 +31,7 @@ async function getOrder(orderId){
 }
 async function startBot(){
   const {state, saveCreds} = await useMultiFileAuthState('./auth')
-  const sock = makeWASocket.default({auth: state, logger: (await import('pino')).default({level:'silent'})})
+  const sock = makeWASocket({auth: state, logger: (await import('pino')).default({level:'silent'})})
   sock.ev.on('creds.update', saveCreds)
   sock.ev.on('connection.update', async u=>{
     if(u.qr){ lastQR=u.qr; qrcodeTerminal.generate(u.qr,{small:true}) }
